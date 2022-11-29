@@ -19,4 +19,16 @@ const brighterColor = (color: string, percent: number) => {
   );
 };
 
-export { brighterColor };
+const getBorderColors = (level: number, maximumValue: number, color: string) => {
+  if (level < maximumValue * 0.25) {
+    return { borderStartColor: color };
+  }
+  if (level < maximumValue * 0.5) {
+    return { borderTopColor: color };
+  }
+  if (level >= 0.75 * maximumValue) {
+    return { borderEndColor: color };
+  }
+};
+
+export { brighterColor, getBorderColors };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { brighterColor } from '../../utils/colorHelper';
+import { brighterColor, getBorderColors } from '../../utils/colorHelper';
 
 interface IndicatorProps {
   level: number;
@@ -11,24 +11,12 @@ interface IndicatorProps {
 }
 
 export const Indicator = ({ level, label, levelLabel, color, maximumValue }: IndicatorProps) => {
-  const getBorderColors = () => {
-    if (level < maximumValue * 0.25) {
-      return { borderStartColor: color };
-    }
-    if (level < maximumValue * 0.5) {
-      return { borderTopColor: color };
-    }
-    if (level >= 0.75 * maximumValue) {
-      return { borderEndColor: color };
-    }
-  };
-
   return (
     <>
       <View
         style={{
           ...styles.slider,
-          ...getBorderColors(),
+          ...getBorderColors(level, maximumValue, color),
           borderColor: brighterColor(color, 30),
         }}>
         <Text style={styles.heading}>{level}</Text>
