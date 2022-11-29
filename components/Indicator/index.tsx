@@ -1,61 +1,64 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { brighterColor } from '../../utils/colorHelper';
 
 interface IndicatorProps {
   level: number;
   label: string;
   levelLabel: string;
   color: string;
+  maximumValue: number;
 }
 
-export const Indicator = ({ level, label, levelLabel, color }: IndicatorProps) => {
+export const Indicator = ({ level, label, levelLabel, color, maximumValue }: IndicatorProps) => {
+  const getBorderColors = () => {
+    if (level < maximumValue * 0.25) {
+      return { borderStartColor: color };
+    }
+    if (level < maximumValue * 0.5) {
+      return { borderTopColor: color };
+    }
+    if (level >= 0.75 * maximumValue) {
+      return { borderEndColor: color };
+    }
+  };
+
   return (
     <>
       <View
         style={{
-          width: 90,
-          height: 45,
-          borderColor: color,
-          borderWidth: 8,
-          borderBottomWidth: 0,
-          borderTopRightRadius: 300,
-          borderTopLeftRadius: 300,
-          alignSelf: 'center',
+          ...styles.slider,
+          ...getBorderColors(),
+          borderColor: brighterColor(color, 30),
         }}>
         <Text style={styles.heading}>{level}</Text>
         <Text style={styles.labelText}>{label}</Text>
       </View>
-      <View>
-        <View style={styles.levelContainer}></View>
-      </View>
       <View
         style={{
           ...styles.labelContainer,
-          backgroundColor: color,
-          width: 70,
-          alignContent: 'flex-end',
-          alignSelf: 'center',
-          marginTop: 20,
+          backgroundColor: brighterColor(color, 80),
         }}>
-        <Text style={styles.levelLabelText}>{levelLabel}</Text>
+        <Text style={{ ...styles.levelLabelText, color: color }}>{levelLabel}</Text>
       </View>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  levelContainer: {
-    borderRadius: 35,
-    alignItems: 'center',
-    alignSelf: 'center',
-  },
   slider: {
-    height: 20,
-    borderRadius: 60,
+    width: 100,
+    height: 50,
+    borderWidth: 8,
+    borderBottomWidth: 0,
+    borderTopRightRadius: 600,
+    borderTopLeftRadius: 600,
+    alignSelf: 'center',
+    justifyContent: 'center',
   },
   heading: {
     fontSize: 22,
-    marginTop: 3,
+    marginTop: 18,
     fontWeight: '400',
     alignSelf: 'center',
   },
@@ -70,5 +73,10 @@ const styles = StyleSheet.create({
   labelContainer: {
     borderRadius: 300,
     alignItems: 'center',
+    alignContent: 'flex-end',
+    alignSelf: 'center',
+    marginTop: 20,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
   },
 });

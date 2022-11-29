@@ -11,6 +11,8 @@ export const BodyDisplay = () => {
 
 const styles = StyleSheet.create({
   svgContainer: {
+    flex: 0.8,
+    alignItems: 'center',
     padding: 20,
   },
 });

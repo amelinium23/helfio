@@ -2,6 +2,7 @@ import Slider from '@react-native-community/slider';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Button, Card } from 'react-native-paper';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export const DiabetesInformation = () => {
   return (
@@ -20,9 +21,7 @@ export const DiabetesInformation = () => {
             maximumTrackTintColor="#dd0808"
             disabled
           />
-          <Button style={styles.button} mode="outlined">
-            Learn More
-          </Button>
+          <Button style={styles.button}>Learn More</Button>
         </Card.Content>
       </Card>
     </View>
